@@ -38,3 +38,23 @@ ORDRE = [Statut.OK, Statut.ATTENTION, Statut.PROBLEME]
 def pire(*statuts):
     """Renvoie le statut le plus grave."""
     return max(statuts, key=ORDRE.index)
+
+# Débit : rapport mesuré / abonnement (si l'abonnement est connu)
+DEBIT_RATIO = (0.5, 0.2)
+# Débit absolu en Mbit/s (si l'abonnement est inconnu)
+DEBIT_MIN_MBPS = (20, 5)
+
+
+def classer_debit(mbps, attendu=None):
+    """Classe le débit descendant : une valeur plus grande est meilleure."""
+    if attendu:
+        bon, moyen = DEBIT_RATIO
+        valeur = mbps / attendu
+    else:
+        bon, moyen = DEBIT_MIN_MBPS
+        valeur = mbps
+    if valeur >= bon:
+        return Statut.OK
+    if valeur >= moyen:
+        return Statut.ATTENTION
+    return Statut.PROBLEME
