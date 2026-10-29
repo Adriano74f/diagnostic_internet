@@ -1,0 +1,27 @@
+
+Envoi d'une requˆte 'Ping'  1.1.1.1 avec 32 octets de donn‚esÿ:
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=4 ms TTL=64
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=4 ms TTL=64
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=5 ms TTL=64
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=5 ms TTL=64
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=5 ms TTL=64
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=4 ms TTL=64
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=4 ms TTL=64
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=4 ms TTL=64
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=5 ms TTL=64
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=10 ms TTL=64
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=5 ms TTL=64
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=6 ms TTL=64
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=5 ms TTL=64
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=15 ms TTL=64
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=5 ms TTL=64
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=3 ms TTL=64
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=10 ms TTL=64
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=9 ms TTL=64
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=5 ms TTL=64
+R‚ponse de 1.1.1.1ÿ: octets=32 temps=4 ms TTL=64
+
+Statistiques Ping pour 1.1.1.1:
+    Paquetsÿ: envoy‚s = 20, re‡us = 20, perdus = 0 (perte 0%),
+Dur‚e approximative des boucles en millisecondes :
+    Minimum = 3ms, Maximum = 15ms, Moyenne = 5ms

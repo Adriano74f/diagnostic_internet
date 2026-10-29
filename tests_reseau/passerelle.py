@@ -2,15 +2,7 @@ from statistics import mean
 
 from modele import ResultatTest, Statut
 from outils import ping, powershell
-from seuils import classer, LATENCE_BOX_MS, PERTE_POURCENT
-
-ORDRE = [Statut.OK, Statut.ATTENTION, Statut.PROBLEME]
-
-
-def pire(*statuts):
-    """Renvoie le statut le plus grave."""
-    return max(statuts, key=ORDRE.index)
-
+from seuils import classer, pire, LATENCE_BOX_MS, PERTE_POURCENT
 
 def ip_passerelle():
     """Adresse IP de la passerelle par défaut (la box), ou None."""

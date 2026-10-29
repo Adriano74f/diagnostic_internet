@@ -4,6 +4,7 @@ from rich.table import Table
 from modele import Statut
 from tests_reseau.interface import tester_interface
 from tests_reseau.passerelle import tester_passerelle
+from tests_reseau.latence import tester_acces_internet, tester_latence_et_perte
 
 COULEURS = {
     Statut.OK: "green",
@@ -32,6 +33,10 @@ def main():
         resultats.append(tester_interface())
     with console.status("Test de la box…"):
         resultats.append(tester_passerelle())
+    with console.status("Test de l'accès à Internet…"):
+        resultats.append(tester_acces_internet())
+    with console.status("Mesure de la latence et des pertes (environ 20 s)…"):
+        resultats.extend(tester_latence_et_perte())
     afficher(resultats)
 
 

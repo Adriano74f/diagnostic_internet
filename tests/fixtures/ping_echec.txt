@@ -1,0 +1,9 @@
+
+Envoi d'une requˆte 'Ping'  10.255.255.1 avec 32 octets de donn‚esÿ:
+D‚lai d'attente de la demande d‚pass‚.
+D‚lai d'attente de la demande d‚pass‚.
+D‚lai d'attente de la demande d‚pass‚.
+D‚lai d'attente de la demande d‚pass‚.
+
+Statistiques Ping pour 10.255.255.1:
+    Paquetsÿ: envoy‚s = 4, re‡us = 0, perdus = 4 (perte 100%),

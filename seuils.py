@@ -28,3 +28,13 @@ def classer_signal(dbm):
     if dbm >= moyen:
         return Statut.ATTENTION
     return Statut.PROBLEME
+
+# Gigue = variation de la latence d'un paquet à l'autre
+GIGUE_MS = (10, 30)
+
+ORDRE = [Statut.OK, Statut.ATTENTION, Statut.PROBLEME]
+
+
+def pire(*statuts):
+    """Renvoie le statut le plus grave."""
+    return max(statuts, key=ORDRE.index)
