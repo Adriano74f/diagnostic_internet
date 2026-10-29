@@ -68,11 +68,13 @@ def tester_interface():
     infos = infos_wifi()
     signal = chercher(infos, "Signal")
     if signal is None:
-        return ResultatTest(
-            "Wi-Fi", Statut.ECHEC,
-            details={"brut": infos},
-            message="Wi-Fi connecté, mais impossible de lire la force du signal.",
-        )
+        brut = executer(["netsh", "wlan", "show", "interfaces"]).lower()
+        if "localisation" in brut or "location" in brut:
+            message = ("Windows bloque la lecture du Wi-Fi : activez la localisation "
+                       "(Paramètres > Confidentialité et sécurité > Localisation).")
+        else:
+            message = "Wi-Fi connecté, mais impossible de lire la force du signal."
+        return ResultatTest("Wi-Fi", Statut.ECHEC, details={"brut": infos}, message=message)
 
     pourcent = int(signal.rstrip("%").strip())
     dbm = pourcentage_vers_dbm(pourcent)

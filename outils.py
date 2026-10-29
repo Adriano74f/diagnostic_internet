@@ -2,20 +2,23 @@ import re
 import subprocess
 
 
+def decoder(octets):
+    """Les commandes Windows n'utilisent pas toutes le même encodage :
+    netsh répond en UTF-8, ping dans l'encodage de la console (oem).
+    On essaie UTF-8, et si ça échoue, on utilise oem."""
+    try:
+        return octets.decode("utf-8")
+    except UnicodeDecodeError:
+        return octets.decode("oem", errors="replace")
+
+
 def executer(commande, delai=30):
     """Lance une commande Windows et renvoie sa sortie texte ('' en cas d'échec)."""
     try:
-        resultat = subprocess.run(
-            commande,
-            capture_output=True,
-            text=True,
-            encoding="oem",      # encodage de la console Windows (gère les accents)
-            errors="replace",
-            timeout=delai,
-        )
-        return resultat.stdout
+        resultat = subprocess.run(commande, capture_output=True, timeout=delai)
     except (subprocess.TimeoutExpired, FileNotFoundError):
         return ""
+    return decoder(resultat.stdout)
 
 
 def powershell(script, delai=30):
