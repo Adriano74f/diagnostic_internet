@@ -3,14 +3,10 @@ from rich.panel import Panel
 from rich.table import Table
 
 from arbre_decision import diagnostiquer
+from execution import executer_diagnostic
 from explications import EXPLICATIONS
 from modele import Statut
-from tests_reseau.interface import tester_interface
-from tests_reseau.passerelle import tester_passerelle
-from tests_reseau.latence import tester_acces_internet, tester_latence_et_perte
-from tests_reseau.dns_test import tester_dns
-from tests_reseau.traceroute import tester_traceroute
-from tests_reseau.debit import tester_debit
+from rapport import enregistrer_rapport, texte_mesure
 
 COULEURS = {
     Statut.OK: "green",
@@ -29,8 +25,8 @@ def afficher(resultats):
     table.add_column("Mesure")
     table.add_column("Détail")
     for r in resultats:
-        mesure = f"{r.valeur:.0f} {r.unite}" if r.valeur is not None else "-"
-        table.add_row(r.nom, f"[{COULEURS[r.statut]}]{r.statut.value}[/]", mesure, r.message)
+        table.add_row(r.nom, f"[{COULEURS[r.statut]}]{r.statut.value}[/]",
+                      texte_mesure(r), r.message)
     console.print(table)
 
 
@@ -62,25 +58,20 @@ def demander_debit_abonnement():
 
 def main():
     attendu = demander_debit_abonnement()
-    resultats = {}
 
-    with console.status("Test de la connexion…"):
-        resultats["interface"] = tester_interface()
-    with console.status("Test de la box…"):
-        resultats["passerelle"] = tester_passerelle()
-    with console.status("Test de l'accès à Internet…"):
-        resultats["acces_internet"] = tester_acces_internet()
-    with console.status("Test du DNS…"):
-        resultats["dns"] = tester_dns()
-    with console.status("Mesure de la latence et des pertes (environ 20 s)…"):
-        resultats["latence"], resultats["perte"] = tester_latence_et_perte()
-    with console.status("Traceroute en cours (jusqu'à 1 min)…"):
-        resultats["traceroute"] = tester_traceroute()
-    with console.status("Mesure du débit (environ 30 s)…"):
-        resultats["debit"] = tester_debit(attendu)
+    with console.status("Démarrage…") as statut:
+        def progression(numero, total, texte):
+            if numero < total:
+                statut.update(f"Étape {numero + 1}/{total} — {texte}")
+
+        resultats = executer_diagnostic(attendu, progression)
 
     afficher(resultats.values())
-    afficher_diagnostic(diagnostiquer(resultats))
+    diag = diagnostiquer(resultats)
+    afficher_diagnostic(diag)
+
+    chemin = enregistrer_rapport(resultats, diag, attendu)
+    console.print(f"Rapport enregistré : [bold]{chemin}[/]")
 
 
 if __name__ == "__main__":
